@@ -32,10 +32,8 @@
 #include "G4UnionSolid.hh"
 #include "G4UserLimits.hh"
 #include "G4VisAttributes.hh"
-#include "ScintillatorHit.hh"
-#include "ScintillatorSD.hh"
-#include "SiPMHit.hh"
-#include "SiPMSD.hh"
+#include "IBDHit.hh"
+#include "IBDSD.hh"
 
 #include <algorithm>
 #include <cmath>
@@ -105,11 +103,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
 
 void DetectorConstruction::ConstructSDandField() {
     // Sensitive detectors
-    auto scintSD = new ScintillatorSD("ScintillatorSD", "ScintillatorHitsCollection");
-    G4SDManager::GetSDMpointer()->AddNewDetector(scintSD);
-    SetSensitiveDetector("liquid", scintSD, true);
-
-    // auto sipmSD = new SiPMSD("SiPMSD", "SiPMHitsCollection");
-    // G4SDManager::GetSDMpointer()->AddNewDetector(sipmSD);
-    // SetSensitiveDetector("sipm", sipmSD, true);
+    auto ibdSD = new IBDSD("IBDSD", "IBDHitsCollection");
+    G4SDManager::GetSDMpointer()->AddNewDetector(ibdSD);
+    SetSensitiveDetector("liquid", ibdSD, true);
 }

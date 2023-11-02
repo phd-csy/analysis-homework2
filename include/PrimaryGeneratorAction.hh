@@ -5,7 +5,7 @@
 #include "globals.hh"
 #include "G4HEPEvtInterface.hh"
 
-class G4GeneralParticleSource;
+class G4VPrimaryGenerator;
 class G4Event;
 
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
@@ -16,7 +16,7 @@ public:
     virtual void GeneratePrimaries(G4Event* anEvent);
 
 private:
-    G4HEPEvtInterface* HEPEvt;
+    G4VPrimaryGenerator* HEPEvt;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -2,13 +2,7 @@
 /run/verbose 0
 /event/verbose 0
 /tracking/verbose 0
-
 /run/initialize
 
-/gps/particle gamma
-/gps/ene/mono 0.511 MeV
-/gps/pos/centre 0. 0. -10. cm
-/gps/direction 0 0 1
-
-/run/printProgress 50
-/run/beamOn 1000
+/run/printProgress 100
+/run/beamOn 100000
