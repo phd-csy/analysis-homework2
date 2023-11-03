@@ -4,6 +4,7 @@
 #include "G4AnalysisManager.hh"
 #include "G4Run.hh"
 #include "G4RunManager.hh"
+#include "G4SystemOfUnits.hh"
 #include "G4Timer.hh"
 #include "IBDHit.hh"
 #include "IBDSD.hh"
@@ -26,6 +27,17 @@ void RunAction::BeginOfRunAction(const G4Run* run) {
 #endif
 
     analysisManager->OpenFile("IBD.root");
+
+    analysisManager->CreateH1("eventID", "eventID", 100, 0, 100000);
+    analysisManager->CreateH1("nuEnergy", "nuEnergy", 500, 0, 15 * MeV);
+    analysisManager->CreateH1("ePlusEnergy", "ePlusEnergy", 500, 0, 15 * MeV);
+    analysisManager->CreateH1("captureTime", "captureTime", 100, 0, 200 * us);
+    analysisManager->CreateH1("promptEdep", "promptEdep", 1000, 0, 10 * MeV);
+    analysisManager->CreateH1("delayedEdep", "delayedEdep", 1000, 0, 200 * keV);
+    analysisManager->CreateH1("promptEdep_smear", "promptEdep_smear", 1000, 0, 10 * MeV);
+    analysisManager->CreateH1("delayedEdep_smear", "delayedEdep_smear", 1000, 0, 200 * keV);
+
+    analysisManager->CreateH3("vertex", "vertex", 100, -20 * m, 20 * m, 100, -20 * m, 20 * m, 100, -20 * m, 20 * m);
 
     analysisManager->CreateNtuple("result", "IBD event");
     analysisManager->CreateNtupleDColumn("eventID");

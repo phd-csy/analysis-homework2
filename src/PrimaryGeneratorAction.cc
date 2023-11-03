@@ -20,21 +20,36 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction() {
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 
-    auto radius = 18.5 * m;
-    G4double theta = G4UniformRand() * 180.0 * deg; // 均匀分布的角度
-    G4double phi = G4UniformRand() * 360.0 * deg;   // 均匀分布的角度
-    G4double x0 = radius * sin(theta) * cos(phi);
-    G4double y0 = radius * sin(theta) * sin(phi);
-    G4double z0 = radius * cos(theta);
+    G4double radius = 18.5 * m;
+    G4double x = 0., y = 0., z = 0.;
+    G4ThreeVector vertex;
 
-    auto vertex = G4ThreeVector(x0, y0, z0);
+    x = radius * 2.;
+    y = radius * 2.;
+    z = radius * 2.;
+
+    while (((x * x) + (y * y) + (z * z)) > (radius * radius)) {
+        x = G4UniformRand();
+        y = G4UniformRand();
+        z = G4UniformRand();
+
+        x = (x * 2. * radius) - radius;
+        y = (y * 2. * radius) - radius;
+        z = (z * 2. * radius) - radius;
+    }
+
+    vertex.setX(x);
+    vertex.setY(y);
+    vertex.setZ(z);
 
     HEPEvt->SetParticlePosition(vertex);
 
     auto analysisManager = G4AnalysisManager::Instance();
-    analysisManager->FillNtupleDColumn(1, x0);
-    analysisManager->FillNtupleDColumn(2, y0);
-    analysisManager->FillNtupleDColumn(3, z0);
+    analysisManager->FillH3(0, x, y, z);
+    analysisManager->FillNtupleDColumn(1, x);
+    analysisManager->FillNtupleDColumn(2, y);
+    analysisManager->FillNtupleDColumn(3, z);
+    analysisManager->AddNtupleRow();
 
     HEPEvt->GeneratePrimaryVertex(anEvent);
 }
