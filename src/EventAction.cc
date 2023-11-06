@@ -39,7 +39,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     auto delayEdep = (*ibdHC)[1]->GetEdep();
 
     auto promptEdep_smear = G4RandGauss::shoot(promptEdep, 0.03 * promptEdep / 2.355);
-    auto delayEdep_smear = G4RandGauss::shoot(delayEdep, 0.3 * delayEdep / 2.355);
+    auto delayEdep_smear = G4RandGauss::shoot(delayEdep, 0.03 * delayEdep / 2.355);
 
     analysisManager->FillH1(4, promptEdep);
     analysisManager->FillH1(5, delayEdep);
